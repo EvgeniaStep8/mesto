@@ -1,6 +1,13 @@
 .profile__edit-button {
-  max-width: 24px;
-  padding: 7px;
-  box-sizing: border-box;
+  background-color: black;
+  width: 24px;
+  height: 24px;
+  padding: 0;
   border: 1px solid #FFFFFF;
+  display: block;
+  align-self: flex-end;
+}
+
+.profile__image-button {
+  width: 10px;
 }

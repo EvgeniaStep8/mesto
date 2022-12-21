@@ -1,7 +1,8 @@
 .profile__info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
+  max-width: 336px;
+  display: grid;
+  grid-template: 39px 22px / 1fr 24px;
+  row-gap: 16px;
+  align-content: center;
   color: #FFFFFF;
 }

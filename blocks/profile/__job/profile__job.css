@@ -1,7 +1,7 @@
 .profile__job {
   margin: 0;
   padding: 0;
-  max-width: 336px;
+  grid-column-start: span 2;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
