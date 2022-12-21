@@ -1,5 +1,5 @@
-.profile {
+.card__container {
+  margin: 25px 20px 31px;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 51px;
 }
