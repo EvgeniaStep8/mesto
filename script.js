@@ -10,7 +10,7 @@ function popupClose() {
 editButton.addEventListener('click', popupOpen);
 closePopupButton.addEventListener('click', popupClose);
 
-let formElement = popup.querySelector('.popup__save-button');
+let formElement = popup.querySelector('.popup__form');
 let nameInput = popup.querySelector('.popup__input_name');
 let jobInput = popup.querySelector('.popup__input_job');
 function handleFormSubmit (evt) {
