@@ -11,3 +11,7 @@
   .profile__image-button-add {
     width: 14px;
   }
+
+  .profile__add-button:hover {
+    opacity: 0.6;
+  }
