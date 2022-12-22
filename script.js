@@ -9,18 +9,16 @@ function popupClose() {
 }
 editButton.addEventListener('click', popupOpen);
 closePopupButton.addEventListener('click', popupClose);
-a = querySelector('.pp');
-console.log(a);
-/*let formElement = querySelector('.popup__save-button');
-let nameInput = querySelector('.popup__input_name');
-let jobInput = querySelector('.popup__input_job')
+
+let formElement = popup.querySelector('.popup__save-button');
+let nameInput = popup.querySelector('.popup__input_name');
+let jobInput = popup.querySelector('.popup__input_job');
 function handleFormSubmit (evt) {
-    evt.preventDefault(); 
-    // Получите значение полей jobInput и nameInput из свойства value 
-    // Выберите элементы, куда должны быть вставлены значения полей
-    profileName = querySelector('.profile__name');
-    // Вставьте новые значения с помощью textContent
+    console.log(evt.preventDefault());
+    profileName = document.querySelector('.profile__name');
     profileName.textContent = nameInput.value;
+    profileJob = document.querySelector('.profile__job');
+    profileJob.textContent = jobInput.value;
 }
-formElement.addEventListener('submit', handleFormSubmit);*/
+formElement.addEventListener('submit', handleFormSubmit);
 
