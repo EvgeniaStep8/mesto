@@ -1,11 +1,12 @@
 .profile__edit-button {
-  background-color: black;
+  background-color: transparent;
   width: 24px;
   height: 24px;
   padding: 0;
   border: 1px solid #FFFFFF;
   display: block;
   align-self: flex-end;
+  cursor: pointer;
 }
 
 .profile__image-button {
