@@ -2,5 +2,11 @@
   width: 100%;
   opacity: 0.7;
   border: 1px solid #545454;
-  margin-bottom: 41px;
+  margin-bottom: 40px;
+}
+
+@media screen and (max-width: 424.98px) {
+  .header__line {
+    margin-bottom: 42px;
+  }
 }

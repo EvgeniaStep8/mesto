@@ -6,3 +6,9 @@
   background-color:  #000000;
   font-family: 'Inter', Arial, sans-serif;
 }
+
+@media screen and (max-width: 767.98px) {
+  .page {
+    padding: 0;
+  }
+}

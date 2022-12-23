@@ -2,8 +2,8 @@
   border: none;
   background: url('../../../images/card__like.svg') center no-repeat;
   background-size: 100%;
-  width: 22px;
-  height: 19px;
+  min-width: 22px;
+  min-height: 19px;
   align-self: end;
 }
 

@@ -1,7 +1,8 @@
 .profile__info {
-  max-width: 336px;
+  min-width: 336px;
+  max-width: 400px;
   display: grid;
-  grid-template: 39px 22px / 1fr 24px;
+  grid-template: repeat(2, auto) / 1fr 24px;
   row-gap: 16px;
   align-content: center;
   color: #FFFFFF;
