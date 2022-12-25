@@ -3,8 +3,8 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  width: 32px;
-  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   position: absolute;
   top: -40px;
   right: -40px;
@@ -13,4 +13,14 @@
 
 .popup__close:hover {
   opacity: 0.6;
+}
+
+@media screen and (max-width: 767.98px) {
+  .popup__close {
+    background-size: cover;
+    min-width: 20px;
+    min-height: 20px;
+    top: -36px;
+    right: 0;
+  }
 }

@@ -4,3 +4,16 @@
   align-items: center;
   padding-bottom: 51px;
 }
+
+@media screen and (max-width: 767.98px) {
+  .profile {
+    display: block;
+    padding-bottom: 36px;
+  }
+}
+
+@media screen and (max-width: 424.98px) {
+  .profile {
+    padding: 0 19px 36px;
+  }
+}

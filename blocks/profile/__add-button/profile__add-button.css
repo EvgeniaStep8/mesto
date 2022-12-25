@@ -8,10 +8,25 @@
   min-height: 50px;
   padding: 0;
   border: 2px solid #FFFFFF;
-  display: block;
   cursor: pointer;
 }
   
 .profile__add-button:hover {
   opacity: 0.6;
  }
+
+ @media screen and (max-width: 767.98px) {
+  .profile__add-button {
+    margin: 30px auto 0;
+    width: 100%;
+  }
+}
+
+ @media screen and (max-width: 424.98px) {
+   .profile__add-button {
+    width: 100%;
+    margin-top: 33px;
+   }
+ }
+
+ 
