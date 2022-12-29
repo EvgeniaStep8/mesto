@@ -1,8 +1,7 @@
 .popup__save-button {
   border: none;
-  margin: 48px auto 0;
+  margin: 50px auto 0;
   width: 100%;
-  min-height: 50px;
   background:  #000000;
   border-radius: 2px;
   font-family: inherit;
@@ -11,7 +10,7 @@
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
-  padding: 14px 0 18px;
+  padding: 14px 0;
   cursor: pointer;
 }
 
