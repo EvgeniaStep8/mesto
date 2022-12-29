@@ -10,10 +10,6 @@
   font-family: 'Inter', Arial, sans-serif;
 }
 
-.content {
-  flex-grow: 1;
-}
-
 @media screen and (max-width: 1279.98px) {
   .page {
     padding: 0 50px;

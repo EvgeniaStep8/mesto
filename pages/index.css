@@ -5,6 +5,8 @@
 /* Стили header */
 @import url('../blocks/header/header.css');
 @import url('../blocks/header/__logo/header__logo.css');
+/* Стили content */
+@import url('../blocks/content/content.css');
 /* Стили profile */
 @import url('../blocks/profile/profile.css');
 @import url('../blocks/profile/__container/profile__container.css');

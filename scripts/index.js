@@ -7,12 +7,12 @@ let jobInput = popup.querySelector('.popup__input_type_job');
 let profileName = document.querySelector('.profile__name');
 let profileJob = document.querySelector('.profile__job');
 function popupOpen() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   popup.classList.add('popup_opened');
 }
 function popupClose() {
     popup.classList.remove('popup_opened');
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
 }
 editButton.addEventListener('click', popupOpen);
 closePopupButton.addEventListener('click', popupClose);
