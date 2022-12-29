@@ -8,6 +8,7 @@
   min-height: 50px;
   padding: 0;
   border: 2px solid #FFFFFF;
+  border-radius: 2px;
   cursor: pointer;
 }
   
@@ -24,8 +25,8 @@
 
  @media screen and (max-width: 424.98px) {
    .profile__add-button {
-    width: 100%;
     margin-top: 33px;
+    background-size: 16px 16px;
    }
  }
 

@@ -5,6 +5,7 @@
   min-width: 22px;
   min-height: 19px;
   align-self: end;
+  cursor: pointer;
 }
 
 .card__like:hover {

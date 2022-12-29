@@ -11,14 +11,15 @@ editButton.addEventListener('click', popupOpen);
 closePopupButton.addEventListener('click', popupClose);
 
 let formElement = popup.querySelector('.popup__form');
-let nameInput = popup.querySelector('.popup__input_name');
-let jobInput = popup.querySelector('.popup__input_job');
+let nameInput = popup.querySelector('.popup__input_type_name');
+let jobInput = popup.querySelector('.popup__input_type_job');
+let profileName = document.querySelector('.profile__name');
+let profileJob = document.querySelector('.profile__job');
 function handleFormSubmit (evt) {
     evt.preventDefault();
-    profileName = document.querySelector('.profile__name');
     profileName.textContent = nameInput.value;
-    profileJob = document.querySelector('.profile__job');
     profileJob.textContent = jobInput.value;
+    popupClose();
 }
 formElement.addEventListener('submit', handleFormSubmit);
 
