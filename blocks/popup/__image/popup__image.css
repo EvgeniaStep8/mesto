@@ -1,0 +1,5 @@
+.popup__image{
+  padding: 90px 0px;
+  height: 100%;
+  object-fit: contain;
+}

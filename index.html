@@ -88,20 +88,18 @@
     <footer class="footer">
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_type_edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupForm">
+        <form class="popup__form" name="popupEditForm">
           <input
             type="text"
             name="firstname"
-            value="Жак-Ив Кусто"
             class="popup__input popup__input_type_name"
           >
           <input
             type="text"
             name="job"
-            value="Исследователь океана"
             class="popup__input popup__input_type_job"
           >
           <button class="popup__save-button" type="submit">Сохранить</button>
@@ -109,6 +107,39 @@
         <button class="popup__close" type="button"></button>
       </div>
     </div>
+    <div class="popup popup_type_add">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popupAddForm">
+          <input
+            type="text"
+            name="title"
+            class="popup__input popup__input_type_title"
+            placeholder="Название"
+          >
+          <input
+            type="text"
+            name="imageLink"
+            class="popup__input popup__input_type_link"
+            placeholder="Ссылка на картинку"
+          >
+          <button class="popup__save-button" type="submit">Создать</button>
+        </form>
+        <button class="popup__close" type="button"></button>
+      </div>
+    </div>
+    <div class="popup popup_type_image">
+      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="" class="popup__image">
+    </div>
+    <template id="card-template">
+      <article class="card">
+        <img class="card__image" src="" alt="">
+        <div class="card__container">
+          <h2 class="card__title"></h2>
+          <button class="card__like" type="button"></button>
+        </div>
+      </article>
+    </template>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
