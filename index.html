@@ -88,7 +88,7 @@
     <footer class="footer">
       <p class="footer__copyright">&#169; 2022 Mesto Russia</p>
     </footer>
-    <div class="popup popup_type_edit">
+    <div class="popup" id="popup-edit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popupEditForm">
@@ -107,7 +107,7 @@
         <button class="popup__close" type="button"></button>
       </div>
     </div>
-    <div class="popup popup_type_add">
+    <div class="popup" id="popup-add">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="popupAddForm">
@@ -128,8 +128,9 @@
         <button class="popup__close" type="button"></button>
       </div>
     </div>
-    <div class="popup popup_type_image">
-      <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg" alt="" class="popup__image">
+    <div class="popup" id="popup-open-image">
+      <img src="" alt="" class="popup__image">
+      <button class="popup__close" type="button"></button>
     </div>
     <template id="card-template">
       <article class="card">
