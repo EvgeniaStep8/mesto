@@ -1,6 +1,11 @@
 .card {
+  position: relative;
   background: #FFFFFF;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
   overflow: hidden;
+}
+
+.card__delete:hover {
+  opacity: 0.5;
 }
