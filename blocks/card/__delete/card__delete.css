@@ -10,3 +10,6 @@
   cursor: pointer;
 }
 
+.card__delete:hover {
+  opacity: 0.5;
+}

@@ -66,7 +66,11 @@ function addCard (title, link) {
   cardImage.alt = titleInput.value;
   const cardLikeButton = card.querySelector('.card__like');
   cardLikeButton.addEventListener('click', function(evt) {
-  evt.target.classList.toggle('card__like_active');
+    evt.target.classList.toggle('card__like_active');
+  });
+  const cardDeleteButton = card.querySelector('.card__delete');
+  cardDeleteButton.addEventListener('click', function(evt) {
+    evt.target.parentElement.remove();
   });
   cards.append(card);
 }
