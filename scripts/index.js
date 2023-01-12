@@ -56,6 +56,7 @@ closePopupAddButton.addEventListener('click', function() {
 
 const cards = document.querySelector('.cards');
 let popupImage = popupOpenImage.querySelector('.popup__image');
+let popupCaption = popupOpenImage.querySelector('.popup__caption');
 
 function addCard (title, link) {
   const cardTemplate = document.querySelector('#card-template').content;
@@ -77,6 +78,7 @@ function addCard (title, link) {
     popupOpen(popupOpenImage);
     popupImage.src = evt.target.src;
     popupImage.alt = evt.target.alt;
+    popupCaption.textContent = evt.target.alt;
   });
   cards.append(card);
 }
