@@ -46,7 +46,7 @@ let linkInput = popupAdd.querySelector('.popup__input_type_link');
 
 addButton.addEventListener('click', function () {
   titleInput.value = '';
-  linkInput.value= '';
+  linkInput.value = '';
   popupOpen(popupAdd);
 });
 
@@ -56,21 +56,55 @@ closePopupAddButton.addEventListener('click', function() {
 
 const cards = document.querySelector('.cards');
 
-function addCard (evt) {
-  evt.preventDefault();
+function addCard (title, link) {
   const cardTemplate = document.querySelector('#card-template').content;
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   cardTitle = card.querySelector('.card__title');
   cardImage = card.querySelector('.card__image');
-  cardTitle.textContent = titleInput.value;
-  cardImage.src = linkInput.value;
+  cardTitle.textContent = title;
+  cardImage.src = link;
   cardImage.alt = titleInput.value;
   const cardLikeButton = card.querySelector('.card__like');
-  cardLikeButton.addEventListener('click', function (evt){
-  evt.target.classList.toggle('.card__like_active');
+  cardLikeButton.addEventListener('click', function(evt) {
+  evt.target.classList.toggle('card__like_active');
   });
   cards.append(card);
 }
 
-formElementAdd.addEventListener('submit', addCard);
+formElementAdd.addEventListener('submit', function(evt){
+  evt.preventDefault();
+  addCard(titleInput.value, linkInput.value);
+  popupClose(popupAdd);
+});
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
+
+for (let i = 0; i < initialCards.length; i++) {
+  addCard(initialCards[i].name, initialCards[i].link);
+}
 
