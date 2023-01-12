@@ -1,0 +1,5 @@
+.popup__image-container {
+  position: relative;
+  margin: 90px 0;
+  height: calc(100% - 180px);
+}
