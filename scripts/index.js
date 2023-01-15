@@ -99,5 +99,5 @@ formAddCard.addEventListener('submit', function(evt){
 
 initialCards.forEach(function (item){
   const newCard = createCard(item.name, item.link);
-  cardsContainer.prepend(newCard);
+  cardsContainer.append(newCard);
 });
