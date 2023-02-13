@@ -54,8 +54,8 @@ function handleEditProfileButtonClick() {
   openPopup(popupEditProfile);
   const inputListFormEditProfile = Array.from(formEditProfile.querySelectorAll('.popup__input'));
   inputListFormEditProfile.forEach ((inputElement) => {
-    checkInputValidity (formEditProfile, inputElement);
-    toggleButtonState(formEditProfile, inputListFormEditProfile);
+    checkInputValidity (config, formEditProfile, inputElement);
+    toggleButtonState(config, formEditProfile, inputListFormEditProfile);
   });
 }
 
@@ -80,7 +80,7 @@ function handleAddCardButtonClick() {
   formAddCard.reset();
   const inputListFormAddCard = Array.from(formAddCard.querySelectorAll('.popup__input'));
   inputListFormAddCard.forEach ((inputElement) => {
-    hideInputError(formAddCard, inputElement)
+    hideInputError(config, formAddCard, inputElement)
   });
   openPopup(popupAddCard);
 }
