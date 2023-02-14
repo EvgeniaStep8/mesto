@@ -49,7 +49,6 @@ function toggleButtonState(settings, formElement, inputList) {
 
 function addInputListeners (settings, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-  console.log(inputList);
   toggleButtonState(settings, formElement, inputList);
   inputList.forEach ((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -65,6 +64,19 @@ function enableValidation(settings) {
   formList.forEach( (formElement) => {
     addInputListeners(settings, formElement);
   });
+}
+
+function removeValidationErrors (settings, formElement) {
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+  inputList.forEach ((inputElement) => {
+    hideInputError(settings, formElement, inputElement);
+  });
+}
+
+function deactivateButtonSubmit(settings, formElement) {
+  const buttonElement = formElement.querySelector(settings.buttonSubmitSelector);
+  buttonElement.classList.add(settings.buttonSubmitDisabledClass);
+  buttonElement.disabled = true;
 }
 
 enableValidation(settingValidation);
