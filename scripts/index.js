@@ -24,7 +24,7 @@ function closePopup(popup) {
   popup.removeEventListener('click', closePopupByOverlayClick);
 }
 
-function сlosePopupByEsc(evt) {
+function closePopupByEsc(evt) {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
@@ -40,7 +40,7 @@ function closePopupByOverlayClick(evt) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', сlosePopupByEsc);
+  document.addEventListener('keydown', closePopupByEsc);
   popup.addEventListener('click', closePopupByOverlayClick);
 }
 
@@ -58,8 +58,7 @@ function handleClosePopupButtonClick() {
 function handleEditProfileButtonClick() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  removeValidationErrors (settingValidation, formEditProfile);
-  deactivateButtonSubmit(settingValidation, formEditProfile);
+  resetValidation(settingValidation, formEditProfile);
   openPopup(popupEditProfile);
 }
 
@@ -72,8 +71,7 @@ function handleEditFormSubmit (evt) {
 
 function handleAddCardButtonClick() {
   formAddCard.reset();
-  removeValidationErrors(settingValidation, formAddCard);
-  deactivateButtonSubmit(settingValidation, formAddCard);
+  resetValidation(settingValidation, formAddCard);
   openPopup(popupAddCard);
 }
 

@@ -66,14 +66,11 @@ function enableValidation(settings) {
   });
 }
 
-function removeValidationErrors (settings, formElement) {
+function resetValidation (settings, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
   inputList.forEach ((inputElement) => {
     hideInputError(settings, formElement, inputElement);
   });
-}
-
-function deactivateButtonSubmit(settings, formElement) {
   const buttonElement = formElement.querySelector(settings.buttonSubmitSelector);
   buttonElement.classList.add(settings.buttonSubmitDisabledClass);
   buttonElement.disabled = true;
