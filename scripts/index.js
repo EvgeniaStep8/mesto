@@ -1,3 +1,8 @@
+import  {initialCards, settingsValidation} from './constans.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+
 const popupEditProfile = document.querySelector('#popup-edit');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
@@ -6,6 +11,7 @@ const jobInput = popupEditProfile.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const cardTemplate = document.querySelector('#card-template').content;
+const editFormValidator = new FormValidator(settingsValidation, formEditProfile);
 
 const popupAddCard = document.querySelector('#popup-add');
 const addCardButton = document.querySelector('.profile__add-button');
@@ -13,6 +19,7 @@ const formAddCard = popupAddCard.querySelector('.popup__form');
 const titleCardInput = popupAddCard.querySelector('.popup__input_type_title');
 const linkCardImageInput = popupAddCard.querySelector('.popup__input_type_link');
 const cardsContainer = document.querySelector('.cards');
+const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 
 const popupZoomImage = document.querySelector('#popup-open-image');
 const popupImage = popupZoomImage.querySelector('.popup__image');
@@ -20,7 +27,7 @@ const popupCaption = popupZoomImage.querySelector('.popup__caption');
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', сlosePopupByEsc);
+  document.removeEventListener('keydown', closePopupByEsc);
   popup.removeEventListener('click', closePopupByOverlayClick);
 }
 
@@ -50,7 +57,6 @@ function handleClosePopupButtonClick() {
     closeButton.addEventListener ('click', () => {
       const popup = closeButton.closest('.popup');
       closePopup(popup);
-      console.log(popup);
     }); 
   });
 }
@@ -58,7 +64,7 @@ function handleClosePopupButtonClick() {
 function handleEditProfileButtonClick() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  resetValidation(settingValidation, formEditProfile);
+  editFormValidator.resetValidation();
   openPopup(popupEditProfile);
 }
 
@@ -71,83 +77,9 @@ function handleEditFormSubmit(evt) {
 
 function handleAddCardButtonClick() {
   formAddCard.reset();
-  resetValidation(settingValidation, formAddCard);
+  addFormValidator.resetValidation();
   openPopup(popupAddCard);
 }
-
-class Card {
-  constructor(data, templateSelector) {
-    this._name = data.name;
-    this._link = data.link;
-    this._templateSelector = templateSelector;
-  }
-
-  _handleLike() {
-    this._card
-    .querySelector('.card__like').classList.toggle('card__like_active');
-  }
-
-  _handleDelete() {
-    this._card
-    .querySelector('.card__delete')
-    .closest('.card')
-    .remove();
-  }
-
-  _openPopup() {
-    popupZoomImage.classList.add('popup_opened');
-  }
-
-  _handleZoomImage() {
-    this._openPopup();
-    popupImage.src = this._link;
-    popupImage.alt = this._name;
-    popupCaption.textContent = this._name;
-  }
-
-  _addEventListeners() {
-    this._card
-    .querySelector('.card__like')
-    .addEventListener('click', () => {
-      this._handleLike();
-    });
-
-    this._card
-    .querySelector('.card__delete')
-    .addEventListener('click', () => {
-      this._handleDelete();
-    })
-
-    this._card
-    .querySelector('.card__image')
-    .addEventListener('click', () => {
-      this._handleZoomImage();
-    })
-  }
-  
-  _getTemplate() {
-    const card = document
-      .querySelector(this._templateSelector)
-      .content
-      .querySelector('.card')
-      .cloneNode(true);
-    return card;
-  }
-
-  createCard() {
-    this._card = this._getTemplate();
-
-    this._card.querySelector('.card__title').textContent = this._name;
-    this._card.querySelector('.card__image').src = this._link;
-    this._card.querySelector('.card__image').alt = this._name;
-
-    this. _addEventListeners();
-
-    return this._card;
-  }
-
-}
-
 
 function addCard(name, link) {
   const cardData = {};
@@ -171,6 +103,9 @@ initialCards.forEach(function (item){
 });
 
 handleClosePopupButtonClick();
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 editProfileButton.addEventListener('click', handleEditProfileButtonClick);
 formEditProfile.addEventListener('submit', handleEditFormSubmit);
