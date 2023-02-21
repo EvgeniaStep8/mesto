@@ -6,11 +6,10 @@ import FormValidator from './FormValidator.js';
 const popupEditProfile = document.querySelector('#popup-edit');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const formEditProfile = popupEditProfile.querySelector('.popup__form');
-const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
-const jobInput = popupEditProfile.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
-const cardTemplate = document.querySelector('#card-template').content;
+const nameInput = popupEditProfile.querySelector('.popup__input_type_name');
+const jobInput = popupEditProfile.querySelector('.popup__input_type_job');
 const editFormValidator = new FormValidator(settingsValidation, formEditProfile);
 
 const popupAddCard = document.querySelector('#popup-add');
@@ -22,8 +21,6 @@ const cardsContainer = document.querySelector('.cards');
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 
 const popupZoomImage = document.querySelector('#popup-open-image');
-const popupImage = popupZoomImage.querySelector('.popup__image');
-const popupCaption = popupZoomImage.querySelector('.popup__caption');
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -85,7 +82,7 @@ function addCard(name, link) {
   const cardData = {};
   cardData.name = name;
   cardData.link = link;
-  const card = new Card(cardData, '#card-template');
+  const card = new Card(cardData, '#card-template', popupZoomImage, openPopup);
   const cardElement = card.createCard();
   cardsContainer.prepend(cardElement);
 }
@@ -97,7 +94,7 @@ function handleAddFormSubmit(evt) {
 }
 
 initialCards.forEach(function (item){
-  const card = new Card(item, '#card-template');
+  const card = new Card(item, '#card-template', popupZoomImage, openPopup);
   const cardElement = card.createCard();
   cardsContainer.append(cardElement);
 });

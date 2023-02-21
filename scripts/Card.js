@@ -1,13 +1,17 @@
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, popup, openPopup) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._popup = popup;
+    this._openPopup = openPopup;
   }
 
   _handleLike() {
     this._card
-    .querySelector('.card__like').classList.toggle('card__like_active');
+    .querySelector('.card__like')
+    .classList
+    .toggle('card__like_active');
   }
 
   _handleDelete() {
@@ -17,15 +21,17 @@ export default class Card {
     .remove();
   }
 
-  _openPopup() {
-    popupZoomImage.classList.add('popup_opened');
-  }
-
   _handleZoomImage() {
-    this._openPopup();
-    popupImage.src = this._link;
-    popupImage.alt = this._name;
-    popupCaption.textContent = this._name;
+    this._openPopup(this._popup);
+    this._popup
+    .querySelector('.popup__image')
+    .src = this._link;
+    this._popup
+    .querySelector('.popup__image')
+    .alt = this._name;
+    this._popup
+    .querySelector('.popup__caption')
+    .textContent = this._name;
   }
 
   _addEventListeners() {
