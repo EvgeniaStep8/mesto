@@ -1,10 +1,10 @@
 export default class Card {
-  constructor(data, templateSelector, popup, openPopup) {
+  constructor(data, templateSelector, popup, openPopupZoomImage) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._popup = popup;
-    this._openPopup = openPopup;
+    this._openPopup = openPopupZoomImage;
   }
 
   _handleLike() {
@@ -22,7 +22,6 @@ export default class Card {
   }
 
   _handleZoomImage() {
-    this._openPopup(this._popup);
     this._popup
     .querySelector('.popup__image')
     .src = this._link;
@@ -32,6 +31,8 @@ export default class Card {
     this._popup
     .querySelector('.popup__caption')
     .textContent = this._name;
+
+    this._openPopup(this._popup);
   }
 
   _addEventListeners() {

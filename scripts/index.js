@@ -79,9 +79,10 @@ function handleAddCardButtonClick() {
 }
 
 function addCard(name, link) {
-  const cardData = {};
-  cardData.name = name;
-  cardData.link = link;
+  const cardData = {
+    name: name,
+    link: link,
+  }
   const card = new Card(cardData, '#card-template', popupZoomImage, openPopup);
   const cardElement = card.createCard();
   cardsContainer.prepend(cardElement);
@@ -93,7 +94,7 @@ function handleAddFormSubmit(evt) {
   closePopup(popupAddCard);
 }
 
-initialCards.forEach(function (item){
+initialCards.forEach((item) => {
   const card = new Card(item, '#card-template', popupZoomImage, openPopup);
   const cardElement = card.createCard();
   cardsContainer.append(cardElement);
