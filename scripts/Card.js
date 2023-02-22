@@ -1,10 +1,9 @@
 export default class Card {
-  constructor(data, templateSelector, popup, openPopupZoomImage) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor(name, link, templateSelector, handleClickImage) {
+    this._name = name;
+    this._link = link;
     this._templateSelector = templateSelector;
-    this._popup = popup;
-    this._openPopup = openPopupZoomImage;
+    this._handleClickImage = handleClickImage;
   }
 
   _handleLike() {
@@ -15,24 +14,7 @@ export default class Card {
   }
 
   _handleDelete() {
-    this._card
-    .querySelector('.card__delete')
-    .closest('.card')
-    .remove();
-  }
-
-  _handleZoomImage() {
-    this._popup
-    .querySelector('.popup__image')
-    .src = this._link;
-    this._popup
-    .querySelector('.popup__image')
-    .alt = this._name;
-    this._popup
-    .querySelector('.popup__caption')
-    .textContent = this._name;
-
-    this._openPopup(this._popup);
+    this._card.remove();
   }
 
   _addEventListeners() {
@@ -48,10 +30,9 @@ export default class Card {
       this._handleDelete();
     })
 
-    this._card
-    .querySelector('.card__image')
+    this._image
     .addEventListener('click', () => {
-      this._handleZoomImage();
+      this._handleClickImage(this._link, this._name);
     })
   }
   
@@ -68,8 +49,9 @@ export default class Card {
     this._card = this._getTemplate();
 
     this._card.querySelector('.card__title').textContent = this._name;
-    this._card.querySelector('.card__image').src = this._link;
-    this._card.querySelector('.card__image').alt = this._name;
+    this._image = this._card.querySelector('.card__image');
+    this._image.src = this._link;
+    this._image.alt = this._name;
 
     this. _addEventListeners();
 

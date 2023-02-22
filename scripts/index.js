@@ -21,6 +21,8 @@ const cardsContainer = document.querySelector('.cards');
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 
 const popupZoomImage = document.querySelector('#popup-open-image');
+const popupImage = popupZoomImage.querySelector('.popup__image');
+const popupCaption = popupZoomImage.querySelector('.popup__caption');
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -78,13 +80,21 @@ function handleAddCardButtonClick() {
   openPopup(popupAddCard);
 }
 
-function addCard(name, link) {
-  const cardData = {
-    name: name,
-    link: link,
-  }
-  const card = new Card(cardData, '#card-template', popupZoomImage, openPopup);
+function handleClickCardImage(link, name) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupCaption.textContent = name;
+  openPopup(popupZoomImage);
+}
+
+function createCard(name, link) {
+  const card = new Card(name, link, '#card-template', handleClickCardImage);
   const cardElement = card.createCard();
+  return cardElement;
+}
+
+function addCard(name, link) {
+  const cardElement = createCard(name, link);
   cardsContainer.prepend(cardElement);
 }
 
@@ -95,7 +105,7 @@ function handleAddFormSubmit(evt) {
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item, '#card-template', popupZoomImage, openPopup);
+  const card = new Card(item.name, item.link, '#card-template', handleClickCardImage);
   const cardElement = card.createCard();
   cardsContainer.append(cardElement);
 });
