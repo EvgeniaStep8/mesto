@@ -105,8 +105,7 @@ function handleAddFormSubmit(evt) {
 }
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '#card-template', handleClickCardImage);
-  const cardElement = card.createCard();
+  const cardElement = createCard(item.name, item.link);
   cardsContainer.append(cardElement);
 });
 
