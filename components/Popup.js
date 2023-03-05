@@ -20,7 +20,7 @@ export default class Popup {
 	setEventListeners() {
 		this._popup
 		.querySelector('.popup__close')
-		.addEventListener('click', close)
+		.addEventListener('click', this.close.bind(this));
 	}
 
 	_handleEscUp(evt) {
