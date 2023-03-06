@@ -20,7 +20,6 @@ const userInfo = new UserInfo('.profile__name', '.profile__job');
 
 const addCardButton = document.querySelector('.profile__add-button');
 const formAddCard =document.forms.popupAddForm;
-const cardsContainer = document.querySelector('.cards');
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 
 function handleEditProfileButtonClick() {
@@ -31,9 +30,13 @@ function handleEditProfileButtonClick() {
   popupEditProfile.open();
 }
 
+function getInputValues(popup) {
+  return popup.getInputValues();
+}
+
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  const inputValues = popupEditProfile.getInputValues();
+  const inputValues = getInputValues(popupEditProfile);
   popupEditProfile.close();
   userInfo.setUserInfo(inputValues);
 }
@@ -45,10 +48,17 @@ function handleAddCardButtonClick() {
 
 function handleClickCardImage(link, title) {
   const popupZoomImage = new PopupWithImage('#popup-open-image', link, title);
+  popupZoomImage.setEventListeners();
   popupZoomImage.open();
 }
 
 const cardList = new Section(initialCards, renderer, '.cards');
+
+function getCardElement(name, link) {
+  const card = new Card({ name, link }, '#card-template', handleClickCardImage);
+  const cardElement = card.createCard();
+  return cardElement;
+}
 
 function renderer(item) {
   const card = new Card(item, '#card-template', handleClickCardImage);
@@ -58,22 +68,12 @@ function renderer(item) {
 
 cardList.renderItems();
 
-function getCardElement(name, link) {
-  const card = new Card({ name, link }, '#card-template', handleClickCardImage);
-  const cardElement = card.createCard();
-  return cardElement;
-}
-
-function addCard(name, link) {
-  const cardElement = getCardElement(name, link);
-  cardsContainer.prepend(cardElement);
-}
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const inputs= popupAddCard.getInputValues();
+  const inputs = getInputValues(popupAddCard);
   const {title: name, link} = inputs;
-  addCard(name, link);
+  renderer({ name, link });
   popupAddCard.close();
 }
 
