@@ -6,13 +6,12 @@
     <meta name="description" content="Mesto">
     <meta name="author" content="Евгения Степанова">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
   </head>
   <body class="page">
     <header class="header">
       <img
         class="header__logo"
-        src="./images/header__logo.svg"
+        src="<%=require('./images/header__logo.svg')%>"
         alt="Логотип место"
       >
     </header>
@@ -21,7 +20,7 @@
         <div class="profile__container">
           <img
             class="profile__avatar"
-            src="./images/profile__avatar.jpg"
+            src="<%=require('./images/profile__avatar.jpg')%>"
             alt="Фотография профиля"
           >
           <div class="profile__info">
@@ -117,6 +116,5 @@
         </div>
       </article>
     </template>
-    <script deffer type="module" src="./index.js"></script>
   </body>
 </html>

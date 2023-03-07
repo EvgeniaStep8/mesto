@@ -1,10 +1,11 @@
-import  {initialCards, editProfileButton, formEditProfile, nameInput, jobInput, addCardButton, formAddCard, settingsValidation} from './utils/constants.js';
-import Section from './components/Section.js'
-import Card from './components/Card.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import UserInfo from './components/UserInfo.js'
-import FormValidator from './components/FormValidator.js';
+import './index.css';
+import  {initialCards, editProfileButton, formEditProfile, nameInput, jobInput, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
+import Section from '../components/Section.js'
+import Card from '../components/Card.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js'
+import FormValidator from '../components/FormValidator.js';
 
 function renderCard(item) {
   const card = new Card(item, '#card-template', handleClickCardImage);
@@ -50,7 +51,7 @@ function handleAddFormSubmit(evt) {
   popupAddCard.close();
 }
 
-const cardList = new Section(initialCards, renderCard, '.cards');
+const cardList = new Section(initialCards.reverse(), renderCard, '.cards');
 cardList.renderItems();
 
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
