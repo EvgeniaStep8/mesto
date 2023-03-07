@@ -21,13 +21,9 @@ function handleEditProfileButtonClick() {
   popupEditProfile.open();
 }
 
-function getInputValues(popup) {
-  return popup.getInputValues();
-}
-
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  const inputValues = getInputValues(popupEditProfile);
+  const inputValues = popupEditProfile.getInputValues();
   popupEditProfile.close();
   userInfo.setUserInfo(inputValues);
 }
@@ -45,7 +41,7 @@ function handleClickCardImage(link, title) {
 
 function handleAddFormSubmit(evt) {
   evt.preventDefault();
-  const inputs = getInputValues(popupAddCard);
+  const inputs = popupAddCard.getInputValues();
   const {title: name, link} = inputs;
   renderCard({ name, link });
   popupAddCard.close();
