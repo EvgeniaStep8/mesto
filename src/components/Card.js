@@ -7,19 +7,20 @@ export default class Card {
   }
 
   _handleLike() {
-    this._card
-    .querySelector('.card__like')
+    this._cardLikeButton
     .classList
     .toggle('card__like_active');
   }
 
   _handleDelete() {
     this._card.remove();
+    this. _card = null;
   }
 
   _addEventListeners() {
-    this._card
-    .querySelector('.card__like')
+    this._cardLikeButton = this._card.querySelector('.card__like');
+
+    this._cardLikeButton
     .addEventListener('click', () => {
       this._handleLike();
     });

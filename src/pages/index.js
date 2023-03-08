@@ -7,10 +7,15 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js'
 import FormValidator from '../components/FormValidator.js';
 
-function renderCard(item) {
+function getCard(item) {
   const card = new Card(item, '#card-template', handleClickCardImage);
   const cardElement = card.createCard();
-    cardList.addItem(cardElement);
+  return cardElement;
+}
+
+function renderCard(item) {
+  const cardElement = getCard(item);
+  cardList.addItem(cardElement);
 }
 
 function handleEditProfileButtonClick() {
@@ -21,11 +26,9 @@ function handleEditProfileButtonClick() {
   popupEditProfile.open();
 }
 
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  const inputValues = popupEditProfile.getInputValues();
+function handleEditFormSubmit(inputsValues) {
   popupEditProfile.close();
-  userInfo.setUserInfo(inputValues);
+  userInfo.setUserInfo(inputsValues);
 }
 
 function handleAddCardButtonClick() {
@@ -34,15 +37,11 @@ function handleAddCardButtonClick() {
 }
 
 function handleClickCardImage(link, title) {
-  const popupZoomImage = new PopupWithImage('#popup-open-image', link, title);
-  popupZoomImage.setEventListeners();
-  popupZoomImage.open();
+  popupZoomImage.open(link, title);
 }
 
-function handleAddFormSubmit(evt) {
-  evt.preventDefault();
-  const inputs = popupAddCard.getInputValues();
-  const {title: name, link} = inputs;
+function handleAddFormSubmit(inputsValues) {
+  const {title: name, link} = inputsValues;
   renderCard({ name, link });
   popupAddCard.close();
 }
@@ -60,6 +59,9 @@ const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
 popupAddCard.setEventListeners();
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 addFormValidator.enableValidation();
+
+const popupZoomImage = new PopupWithImage('#popup-open-image');
+popupZoomImage.setEventListeners();
 
 editProfileButton.addEventListener('click', handleEditProfileButtonClick);
 addCardButton.addEventListener('click', handleAddCardButtonClick);
