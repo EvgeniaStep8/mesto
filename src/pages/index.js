@@ -7,14 +7,14 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js'
 import FormValidator from '../components/FormValidator.js';
 
-function getCard(item) {
+function getCardElement(item) {
   const card = new Card(item, '#card-template', handleClickCardImage);
   const cardElement = card.createCard();
   return cardElement;
 }
 
 function renderCard(item) {
-  const cardElement = getCard(item);
+  const cardElement = getCardElement(item);
   cardList.addItem(cardElement);
 }
 
