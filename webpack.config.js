@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    filename: 'main.[hash].js',
     publicPath: '',
   },
   mode: 'development',
@@ -26,9 +26,19 @@ module.exports = {
         exclude: '/node_modules/'
       },
       {
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|jpeg|gif)$/,
         type: 'asset/resource',
-      },
+        generator: {
+            filename: "images/[name].[hash][ext]"
+        },
+    },
+    {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+            filename: "fonts/[name].[hash][ext]"
+        },
+    },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, {
