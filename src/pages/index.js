@@ -46,8 +46,8 @@ function handleAddFormSubmit(inputsValues) {
   popupAddCard.close();
 }
 
-const cardList = new Section(initialCards.reverse(), renderCard, '.cards');
-cardList.renderItems();
+const cardList = new Section(renderCard, '.cards');
+cardList.renderItems(initialCards.reverse());
 
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
 popupEditProfile.setEventListeners();
@@ -60,7 +60,7 @@ popupAddCard.setEventListeners();
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 addFormValidator.enableValidation();
 
-const popupZoomImage = new PopupWithImage('#popup-open-image');
+const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
 popupZoomImage.setEventListeners();
 
 editProfileButton.addEventListener('click', handleEditProfileButtonClick);
