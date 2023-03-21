@@ -121,7 +121,7 @@
           <input
             id = "link-avatar-input"
             type="url"
-            name="link"
+            name="link-avatar"
             class="popup__input popup__input_type_link"
             placeholder="Ссылка на картинку профиля"
             required
@@ -138,7 +138,10 @@
         <button class="card__delete" type="button"></button>
         <div class="card__container">
           <h2 class="card__title"></h2>
-          <button class="card__like" type="button"></button>
+          <div class="card__like-container">
+            <button class="card__like" type="button"></button>
+            <p class="card__like-counter"></p>
+          </div>
         </div>
       </article>
     </template>

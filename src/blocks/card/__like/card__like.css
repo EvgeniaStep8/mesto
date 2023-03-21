@@ -4,7 +4,7 @@
   background-size: 100%;
   min-width: 22px;
   min-height: 19px;
-  align-self: end;
+  margin-bottom: 1px;
   cursor: pointer;
 }
 
