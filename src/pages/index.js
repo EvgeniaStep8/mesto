@@ -5,11 +5,12 @@ import Section from '../components/Section.js'
 import Card from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo.js'
 import FormValidator from '../components/FormValidator.js';
 
 function getCardElement(item) {
-  const card = new Card(item, '#card-template', handleClickCardImage);
+  const card = new Card(item, '#card-template', handleClickCardImage, handleDeleteCard);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -47,6 +48,14 @@ function handleAddFormSubmit(inputsValues) {
   popupAddCard.close();
 }
 
+function handleDeleteCard() {
+  popupConfirm.open();
+}
+
+function handleConfirm() {
+  
+}
+
 const api = new Api(apiOptions);
 const cardList = new Section(renderCard, '.cards');
 api.getInitialCards()
@@ -68,6 +77,9 @@ const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
 popupAddCard.setEventListeners();
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 addFormValidator.enableValidation();
+
+const popupConfirm = new PopupConfirm('popup-confirm', handleConfirm);
+popupConfirm.setEventListeners();
 
 const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
 popupZoomImage.setEventListeners();
