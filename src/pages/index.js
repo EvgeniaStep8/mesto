@@ -1,5 +1,6 @@
 import './index.css';
-import  {initialCards, editProfileButton, formEditProfile, nameInput, jobInput, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
+import  {apiOptions, editProfileButton, formEditProfile, nameInput, jobInput, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
+import Api from '../components/Api'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -46,8 +47,16 @@ function handleAddFormSubmit(inputsValues) {
   popupAddCard.close();
 }
 
+const api = new Api(apiOptions);
 const cardList = new Section(renderCard, '.cards');
-cardList.renderItems(initialCards.reverse());
+api.getInitialCards()
+  .then(res => { 
+    if(res.ok) {
+      return res.json();
+    }
+  })
+  .then(cards => cardList.renderItems(cards.reverse()))
+  .catch(err => console.log(err))
 
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
 popupEditProfile.setEventListeners();
