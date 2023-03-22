@@ -20,7 +20,7 @@ export default class Api{
     })
   }
 
-  editUserInfo(name, about) {
+  editUserInfo({name, about}) {
     return fetch(`${this._baseUrl + '/users/me'}`, {
       method: 'PATCH',
       headers: {

@@ -21,16 +21,27 @@ function renderCard(item) {
 }
 
 function handleEditProfileButtonClick() {
-  const {name, job} = userInfo.getUserInfo();
+  const {name, about} = userInfo.getUserInfo();
   nameInput.value = name;
-  jobInput.value = job;
+  jobInput.value = about;
   editFormValidator.resetValidation();
   popupEditProfile.open();
 }
 
 function handleEditFormSubmit(inputsValues) {
-  popupEditProfile.close();
-  userInfo.setUserInfo(inputsValues);
+  api.editUserInfo(inputsValues)
+    .then(res => {
+      if(res.ok) {
+        return res.json();
+      }
+    })
+    .then(user => {
+      userInfo.setUserInfo(user);
+      popupEditProfile.close();
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+    });
 }
 
 function handleUpdateAvatarButtonClick() {
@@ -76,8 +87,12 @@ api.getUserInfo()
       return res.json();
     }
   })
-  .then(user => userInfo.setUserInfo(user))
+  .then(user => {
+    userInfo.setUserInfo(user);
+    userInfo.setUserAvatar(user);
+  })
   .catch(err => console.log(err));
+
 
 const cardList = new Section(renderCard, '.cards');
 api.getInitialCards()

@@ -3,7 +3,8 @@
   border: none;
   background: inherit;
   display: block;
-  width: 120px;
+  width: 122px;
+  padding: 0;
 }
 
 .profile__change-avatar-button:hover::after {
