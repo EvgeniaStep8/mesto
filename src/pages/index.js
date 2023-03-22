@@ -69,6 +69,16 @@ function handleConfirm(card) {
 }
 
 const api = new Api(apiOptions);
+const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
+api.getUserInfo()
+  .then( res => {
+    if (res.ok) {
+      return res.json();
+    }
+  })
+  .then(user => userInfo.setUserInfo(user))
+  .catch(err => console.log(err));
+
 const cardList = new Section(renderCard, '.cards');
 api.getInitialCards()
   .then(res => { 
@@ -77,11 +87,11 @@ api.getInitialCards()
     }
   })
   .then(cards => cardList.renderItems(cards.reverse()))
-  .catch(err => console.log(err))
+  .catch(err => console.log(err));
 
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
 popupEditProfile.setEventListeners();
-const userInfo = new UserInfo('.profile__name', '.profile__job');
+
 const editFormValidator = new FormValidator(settingsValidation, formEditProfile);
 editFormValidator.enableValidation();
 
