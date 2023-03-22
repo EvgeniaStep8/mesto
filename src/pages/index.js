@@ -1,5 +1,5 @@
 import './index.css';
-import  {apiOptions, editProfileButton, formEditProfile, nameInput, jobInput, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
+import  {apiOptions, editProfileButton, formEditProfile, nameInput, jobInput, changeAvatarButton, formUpdateAvatar, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
 import Api from '../components/Api'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js';
@@ -33,6 +33,16 @@ function handleEditFormSubmit(inputsValues) {
   userInfo.setUserInfo(inputsValues);
 }
 
+function handleUpdateAvatarButtonClick() {
+  updateAvatarFormValidator.resetValidation();
+  popupUpdateAvatar.open();
+}
+
+function handleUpdateAvatarFormSubmit(inputsValues) {
+  popupUpdateAvatar.close();
+
+}
+
 function handleAddCardButtonClick() {
   addFormValidator.resetValidation();
   popupAddCard.open();
@@ -48,12 +58,14 @@ function handleAddFormSubmit(inputsValues) {
   popupAddCard.close();
 }
 
-function handleDeleteCard() {
+function handleDeleteCard(card) {
+  const popupConfirm = new PopupConfirm('#popup-confirm', handleConfirm, card);
+  popupConfirm.setEventListeners();
   popupConfirm.open();
 }
 
-function handleConfirm() {
-  
+function handleConfirm(card) {
+  Card.removeCard(card);
 }
 
 const api = new Api(apiOptions);
@@ -73,16 +85,20 @@ const userInfo = new UserInfo('.profile__name', '.profile__job');
 const editFormValidator = new FormValidator(settingsValidation, formEditProfile);
 editFormValidator.enableValidation();
 
+const popupUpdateAvatar = new PopupWithForm('#popup-update-avatar', handleUpdateAvatarFormSubmit);
+popupUpdateAvatar.setEventListeners();
+const updateAvatarFormValidator = new FormValidator(settingsValidation, formUpdateAvatar);
+updateAvatarFormValidator.enableValidation();
+
+
 const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
 popupAddCard.setEventListeners();
 const addFormValidator = new FormValidator(settingsValidation, formAddCard);
 addFormValidator.enableValidation();
 
-const popupConfirm = new PopupConfirm('popup-confirm', handleConfirm);
-popupConfirm.setEventListeners();
-
 const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
 popupZoomImage.setEventListeners();
 
 editProfileButton.addEventListener('click', handleEditProfileButtonClick);
+changeAvatarButton.addEventListener('click', handleUpdateAvatarButtonClick);
 addCardButton.addEventListener('click', handleAddCardButtonClick);
