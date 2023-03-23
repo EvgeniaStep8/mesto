@@ -1,5 +1,5 @@
 import './index.css';
-import  {apiOptions, editProfileButton, nameInput, jobInput, changeAvatarButton, addCardButton, settingsValidation} from '../utils/constants.js';
+import  {apiOptions, editProfileButton, changeAvatarButton, addCardButton, settingsValidation} from '../utils/constants.js';
 import Api from '../components/Api'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js';
@@ -21,9 +21,7 @@ function renderCard(item) {
 }
 
 function handleEditProfileButtonClick() {
-  const {name, about} = userInfo.getUserInfo();
-  nameInput.value = name;
-  jobInput.value = about;
+  popupEditProfile.updateInputValue(userInfo.getUserInfo())
   editFormValidator.resetValidation();
   popupEditProfile.open();
 }
@@ -92,11 +90,6 @@ api.getUserInfo()
 
 const cardList = new Section(renderCard, '.cards');
 api.getInitialCards()
-  .then(res => { 
-    if(res.ok) {
-      return res.json();
-    }
-  })
   .then(cards => cardList.renderItems(cards.reverse()))
   .catch(err => console.log(err));
 

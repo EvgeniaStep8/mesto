@@ -4,8 +4,6 @@ const apiOptions = {
 }
 
 const editProfileButton = document.querySelector('.profile__edit-button');
-const nameInput =document.querySelector('.popup__input_type_name');
-const jobInput = document.querySelector('.popup__input_type_job');
 const changeAvatarButton = document.querySelector('.profile__change-avatar-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
@@ -17,5 +15,5 @@ const addCardButton = document.querySelector('.profile__add-button');
     inputTypeErrorClass: 'popup__input_type_error',
   }
 
-  export {apiOptions, editProfileButton, nameInput, jobInput, changeAvatarButton,  addCardButton, settingsValidation}
+  export {apiOptions, editProfileButton, changeAvatarButton,  addCardButton, settingsValidation}
   
