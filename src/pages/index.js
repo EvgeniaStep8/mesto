@@ -62,20 +62,19 @@ function handleClickCardImage(link, title) {
   popupZoomImage.open(link, title);
 }
 
-function handleLikeCard(cardId, likeButton, likeCounter) {
-  if (!likeButton.classList.contains('card__like_active')) {
+function handleLikeCard(cardId, card) {
+  if (!card.isCardLikeActive()) {
     api.putCardLike(cardId)
-      .then(({likes}) => {
-        likeButton.classList.add('card__like_active');
-        likeCounter.textContent = likes.length;
+      .then(({ likes }) => {
+        card.renderCardLikeActiveButtonState();
+        card.updateCardLikeCounter(likes.length);
       })
       .catch(err => console.log(err));
   } else {
     api.deleteCardLike(cardId)
-      .then(res => {
-        likeButton.classList.remove('card__like_active');
-        //likeCounter.textContent = likes.length;
-        console.log(res);
+      .then(({ likes }) => {
+        card.renderCardLikeDeactiveButtonState();
+        card.updateCardLikeCounter(likes.length);
       })
       .catch(err => console.log(err));
   }

@@ -3,6 +3,7 @@ export default class Card {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._likes = likes;
     this._numbersOfLikes = likes.length;
     this._templateSelector = templateSelector;
     this._handleLike = handleLikeCard;
@@ -15,7 +16,7 @@ export default class Card {
 
     this._cardLikeButton
     .addEventListener('click', () => {
-      this._handleLike(this._id, this._cardLikeButton, this._likeCounter);
+      this._handleLike(this._id, this);
     });
 
     this._card
@@ -39,6 +40,24 @@ export default class Card {
     return card;
   }
 
+  renderCardLikeActiveButtonState() {
+    this._cardLikeButton.classList.add('card__like_active');
+  }
+
+  renderCardLikeDeactiveButtonState() {
+    this._cardLikeButton.classList.remove('card__like_active');
+  }
+
+  isCardLikeActive() {
+    return this._cardLikeButton.classList.contains('card__like_active');
+  }
+
+
+  updateCardLikeCounter(count) {
+    this._likeCounter = this._card.querySelector('.card__like-counter');
+    this._likeCounter.textContent = count;
+  }
+
   createCard() {
     this._card = this._getTemplate();
 
@@ -46,8 +65,7 @@ export default class Card {
     this._image = this._card.querySelector('.card__image');
     this._image.src = this._link;
     this._image.alt = this._name;
-    this._likeCounter = this._card.querySelector('.card__like-counter')
-    this._likeCounter.textContent = this._numbersOfLikes;
+    this.updateCardLikeCounter(this._numbersOfLikes);
 
     this. _addEventListeners();
 
