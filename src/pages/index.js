@@ -107,18 +107,18 @@ api.getInitialCards()
 const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
 popupEditProfile.setEventListeners();
 
-const editFormValidator = new FormValidator(settingsValidation, formEditProfile);
+const editFormValidator = new FormValidator(settingsValidation, 'popupEditForm');
 editFormValidator.enableValidation();
 
 const popupUpdateAvatar = new PopupWithForm('#popup-update-avatar', handleUpdateAvatarFormSubmit);
 popupUpdateAvatar.setEventListeners();
-const updateAvatarFormValidator = new FormValidator(settingsValidation, formUpdateAvatar);
+const updateAvatarFormValidator = new FormValidator(settingsValidation, 'popupUpdateAvatarForm');
 updateAvatarFormValidator.enableValidation();
 
 
 const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
 popupAddCard.setEventListeners();
-const addFormValidator = new FormValidator(settingsValidation, formAddCard);
+const addFormValidator = new FormValidator(settingsValidation, 'popupAddForm');
 addFormValidator.enableValidation();
 
 const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
