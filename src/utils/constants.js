@@ -7,6 +7,7 @@ const editProfileButton = document.querySelector('.profile__edit-button');
 const changeAvatarButton = document.querySelector('.profile__change-avatar-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
+
   const settingsValidation = {
     inputSelector: '.popup__input',
     buttonSubmitSelector: '.popup__save-button',

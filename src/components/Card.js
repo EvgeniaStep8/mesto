@@ -1,7 +1,8 @@
 export default class Card {
-  constructor({ name, link }, templateSelector,  handleClickImage, handleDeleteCard) {
+  constructor({ name, link, likes }, templateSelector,  handleClickImage, handleDeleteCard) {
     this._name = name;
     this._link = link;
+    this._numbersOfLikes = likes.length;
     this._templateSelector = templateSelector;
     this._handleClickImage = handleClickImage;
     this._handleDeleteCard = handleDeleteCard;
@@ -49,6 +50,7 @@ export default class Card {
     this._image = this._card.querySelector('.card__image');
     this._image.src = this._link;
     this._image.alt = this._name;
+    this._card.querySelector('.card__like-counter').textContent = this._numbersOfLikes;
 
     this. _addEventListeners();
 

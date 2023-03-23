@@ -66,8 +66,8 @@ function handleAddFormSubmit(inputsValues) {
   popupAddCard.renderPending(true);
   const {title: name, link} = inputsValues;
   api.createCard(name, link)
-    .then( card => {
-      renderCard(card);
+    .then(item => {
+      renderCard(item);
       popupAddCard.close();
     })
     .catch(err => console.log(err))
