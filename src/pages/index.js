@@ -1,12 +1,12 @@
 import './index.css';
 import  {apiOptions, editProfileButton, changeAvatarButton, addCardButton, settingsValidation} from '../utils/constants.js';
-import Api from '../components/Api'
-import Section from '../components/Section.js'
+import Api from '../components/Api';
+import Section from '../components/Section.js';
 import Card from '../components/Card.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupConfirm from '../components/PopupConfirm';
-import UserInfo from '../components/UserInfo.js'
+import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
 function getCardElement(item) {
@@ -63,9 +63,16 @@ function handleClickCardImage(link, title) {
 }
 
 function handleAddFormSubmit(inputsValues) {
+  popupAddCard.renderPending(true);
   const {title: name, link} = inputsValues;
-  renderCard({ name, link });
-  popupAddCard.close();
+  api.createCard(name, link)
+    .then( card => {
+      renderCard(card);
+      popupAddCard.close();
+    })
+    .catch(err => console.log(err))
+    .finally(() => popupAddCard.renderPending(false));
+  
 }
 
 function handleDeleteCard(card) {
