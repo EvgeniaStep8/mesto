@@ -10,6 +10,11 @@ export default class Api{
         authorization: this._authorization,
       }
     })
+      .then( res => {
+    if (res.ok) {
+      return res.json();
+    }
+    })
   }
 
   getInitialCards() {
@@ -31,6 +36,29 @@ export default class Api{
         name: name,
         about: about,
       })
+    })
+    .then( res => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+  }
+
+  editUserAvatar({avatar}) {
+    return fetch(`${this._baseUrl + '/users/me/avatar'}`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        avatar: avatar,
+      })
+    })
+    .then( res => {
+      if (res.ok) {
+        return res.json();
+      }
     })
   }
 

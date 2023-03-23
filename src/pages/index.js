@@ -1,5 +1,5 @@
 import './index.css';
-import  {apiOptions, editProfileButton, formEditProfile, nameInput, jobInput, changeAvatarButton, formUpdateAvatar, addCardButton, formAddCard, settingsValidation} from '../utils/constants.js';
+import  {apiOptions, editProfileButton, nameInput, jobInput, changeAvatarButton, addCardButton, settingsValidation} from '../utils/constants.js';
 import Api from '../components/Api'
 import Section from '../components/Section.js'
 import Card from '../components/Card.js';
@@ -29,19 +29,14 @@ function handleEditProfileButtonClick() {
 }
 
 function handleEditFormSubmit(inputsValues) {
+  popupEditProfile.renderPending(true);
   api.editUserInfo(inputsValues)
-    .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-    })
     .then(user => {
       userInfo.setUserInfo(user);
       popupEditProfile.close();
     })
     .catch(err => console.log(err))
-    .finally(() => {
-    });
+    .finally(() => popupEditProfile.renderPending(false));
 }
 
 function handleUpdateAvatarButtonClick() {
@@ -50,8 +45,14 @@ function handleUpdateAvatarButtonClick() {
 }
 
 function handleUpdateAvatarFormSubmit(inputsValues) {
-  popupUpdateAvatar.close();
-
+  popupUpdateAvatar.renderPending(true);
+  api.editUserAvatar(inputsValues)
+    .then( user => {
+      userInfo.setUserAvatar(user);
+      popupUpdateAvatar.close();
+    })
+    .catch(err => console.log(err))
+    .finally(() => popupUpdateAvatar.renderPending(false));
 }
 
 function handleAddCardButtonClick() {
@@ -82,11 +83,6 @@ function handleConfirm(card) {
 const api = new Api(apiOptions);
 const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
 api.getUserInfo()
-  .then( res => {
-    if (res.ok) {
-      return res.json();
-    }
-  })
   .then(user => {
     userInfo.setUserInfo(user);
     userInfo.setUserAvatar(user);

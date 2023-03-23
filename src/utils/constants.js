@@ -4,8 +4,8 @@ const apiOptions = {
 }
 
 const editProfileButton = document.querySelector('.profile__edit-button');
-const nameInput =formEditProfile.querySelector('.popup__input_type_name');
-const jobInput = formEditProfile.querySelector('.popup__input_type_job');
+const nameInput =document.querySelector('.popup__input_type_name');
+const jobInput = document.querySelector('.popup__input_type_job');
 const changeAvatarButton = document.querySelector('.profile__change-avatar-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
