@@ -95,16 +95,21 @@ export default class Api {
     });
   }
 
-  likeCard(cardId) {
+  putCardLike(cardId) {
     return fetch(`${this._baseUrl + "/cards/" + cardId + "/likes"}`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
     });
   }
 
-  deleteLikeCard(cardId) {
+  deleteCardLike(cardId) {
     return fetch(`${this._baseUrl + "/cards/" + cardId + "/likes"}`, {
       method: "DELETE",
       headers: {

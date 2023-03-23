@@ -10,7 +10,7 @@ import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
 function getCardElement(item) {
-  const card = new Card(item, '#card-template', handleClickCardImage, handleDeleteCard);
+  const card = new Card(item, '#card-template', handleLikeCard, handleClickCardImage, handleDeleteCard);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -60,6 +60,25 @@ function handleAddCardButtonClick() {
 
 function handleClickCardImage(link, title) {
   popupZoomImage.open(link, title);
+}
+
+function handleLikeCard(cardId, likeButton, likeCounter) {
+  if (!likeButton.classList.contains('card__like_active')) {
+    api.putCardLike(cardId)
+      .then(({likes}) => {
+        likeButton.classList.add('card__like_active');
+        likeCounter.textContent = likes.length;
+      })
+      .catch(err => console.log(err));
+  } else {
+    api.deleteCardLike(cardId)
+      .then(res => {
+        likeButton.classList.remove('card__like_active');
+        //likeCounter.textContent = likes.length;
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  }
 }
 
 function handleAddFormSubmit(inputsValues) {
