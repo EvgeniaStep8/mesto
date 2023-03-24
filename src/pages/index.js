@@ -9,6 +9,10 @@ import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
+function getUserInfo() {
+  
+}
+
 function getCardElement(item) {
   const card = new Card(item, '#card-template', handleLikeCard, handleClickCardImage, handleDeleteCard);
   const cardElement = card.createCard();
@@ -21,7 +25,7 @@ function renderCard(item) {
 }
 
 function handleEditProfileButtonClick() {
-  popupEditProfile.updateInputValue(userInfo.getUserInfo())
+  popupEditProfile.updateInputValue(userInfo.getUserInfo());
   editFormValidator.resetValidation();
   popupEditProfile.open();
 }
