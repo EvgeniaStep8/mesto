@@ -1,19 +1,33 @@
-import './index.css';
-import  {apiOptions, editProfileButton, changeAvatarButton, addCardButton, settingsValidation} from '../utils/constants.js';
-import Api from '../components/Api';
-import Section from '../components/Section.js';
-import Card from '../components/Card.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupConfirm from '../components/PopupConfirm';
-import UserInfo from '../components/UserInfo.js';
-import FormValidator from '../components/FormValidator.js';
+import "./index.css";
+import {
+  apiOptions,
+  editProfileButton,
+  changeAvatarButton,
+  addCardButton,
+  settingsValidation,
+} from "../utils/constants.js";
+import Api from "../components/Api";
+import Section from "../components/Section.js";
+import Card from "../components/Card.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupConfirm from "../components/PopupConfirm";
+import UserInfo from "../components/UserInfo.js";
+import FormValidator from "../components/FormValidator.js";
 
 function getCardElement(item) {
   const userId = userInfo.getUserId();
-  const isCardLikeOwner = item.likes.some(like => like._id ===userId);
+  const isCardLikeOwner = item.likes.some((like) => like._id === userId);
   const isOwnerCard = item.owner._id === userId;
-  const card = new Card(item, isCardLikeOwner, isOwnerCard, '#card-template', handleLikeCard, handleClickCardImage, handleDeleteCard);
+  const card = new Card(
+    item,
+    isCardLikeOwner,
+    isOwnerCard,
+    "#card-template",
+    handleLikeCard,
+    handleClickCardImage,
+    handleDeleteCard
+  );
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -32,11 +46,12 @@ function handleEditProfileButtonClick() {
 function handleEditFormSubmit(inputsValues) {
   popupEditProfile.renderPending(true);
   api.patchUserInfo(inputsValues)
-    .then(user => {
+    .then((user) => {
       userInfo.setUserInfo(user);
+      userInfo.renderUserInfo();
       popupEditProfile.close();
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => popupEditProfile.renderPending(false));
 }
 
@@ -47,12 +62,13 @@ function handleUpdateAvatarButtonClick() {
 
 function handleUpdateAvatarFormSubmit(inputsValues) {
   popupUpdateAvatar.renderPending(true);
-  api.editUserAvatar(inputsValues)
-    .then( user => {
-      userInfo.setUserAvatar(user);
+  api.patchUserAvatar(inputsValues)
+    .then((user) => {
+      userInfo.setUserInfo(user);
+      userInfo.renderUserAvatar();
       popupUpdateAvatar.close();
     })
-    .catch(err => console.log(err))
+    .catch((err) => console.log(err))
     .finally(() => popupUpdateAvatar.renderPending(false));
 }
 
@@ -73,7 +89,7 @@ function handleLikeCard(cardId, card) {
         card.updateCardLikeCounter(likes.length);
         card.isCardLikeOwner = true;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   } else {
     api.deleteCardLike(cardId)
       .then(({ likes }) => {
@@ -81,72 +97,88 @@ function handleLikeCard(cardId, card) {
         card.updateCardLikeCounter(likes.length);
         card.isCardLikeOwner = false;
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
-}
-
-function handleAddFormSubmit(inputsValues) {
-  popupAddCard.renderPending(true);
-  const {title: name, link} = inputsValues;
-  api.createCard(name, link)
-    .then(item => {
-      renderCard(item);
-      popupAddCard.close();
-    })
-    .catch(err => console.log(err))
-    .finally(() => popupAddCard.renderPending(false));
-  
 }
 
 function handleDeleteCard(cardId, card) {
   popupConfirm.open();
-  popupConfirm.getInfoAboutConfirmedAction({cardId, card})
+  popupConfirm.getInfoAboutConfirmedAction({ cardId, card });
 }
 
-function handleConfirm({cardId, card}) {
+function handleAddFormSubmit(inputsValues) {
+  popupAddCard.renderPending(true);
+  const { title: name, link } = inputsValues;
+  api.postCard(name, link)
+    .then((item) => {
+      renderCard(item);
+      popupAddCard.close();
+    })
+    .catch((err) => console.log(err))
+    .finally(() => popupAddCard.renderPending(false));
+}
+
+function handleConfirm({ cardId, card }) {
   api.deleteCard(cardId)
     .then(() => card.removeCard())
-    .catch(err => console.log(err));
+    .catch((err) => console.log(err));
 }
 
 const api = new Api(apiOptions);
-const userInfo = new UserInfo('.profile__name', '.profile__job', '.profile__avatar');
+
+const userInfo = new UserInfo(
+  ".profile__name",
+  ".profile__job",
+  ".profile__avatar"
+);
 api.getUserInfo()
-  .then(user => {
+  .then((user) => {
     userInfo.setUserInfo(user);
-    userInfo.setUserAvatar(user);
+    userInfo.renderUserInfo();
+    userInfo.renderUserAvatar();
   })
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
-
-const cardList = new Section(renderCard, '.cards');
+const cardList = new Section(renderCard, ".cards");
 api.getInitialCards()
-  .then(cards => cardList.renderItems(cards.reverse()))
-  .catch(err => console.log(err));
+  .then((cards) => cardList.renderItems(cards.reverse()))
+  .catch((err) => console.log(err));
 
-const popupEditProfile = new PopupWithForm('#popup-edit', handleEditFormSubmit);
+const popupEditProfile = new PopupWithForm("#popup-edit", handleEditFormSubmit);
 popupEditProfile.setEventListeners();
 
-const editFormValidator = new FormValidator(settingsValidation, 'popupEditForm');
+const editFormValidator = new FormValidator(
+  settingsValidation,
+  "popupEditForm"
+);
 editFormValidator.enableValidation();
 
-const popupUpdateAvatar = new PopupWithForm('#popup-update-avatar', handleUpdateAvatarFormSubmit);
+const popupUpdateAvatar = new PopupWithForm(
+  "#popup-update-avatar",
+  handleUpdateAvatarFormSubmit
+);
 popupUpdateAvatar.setEventListeners();
-const updateAvatarFormValidator = new FormValidator(settingsValidation, 'popupUpdateAvatarForm');
+const updateAvatarFormValidator = new FormValidator(
+  settingsValidation,
+  "popupUpdateAvatarForm"
+);
 updateAvatarFormValidator.enableValidation();
 
-
-const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
+const popupAddCard = new PopupWithForm("#popup-add", handleAddFormSubmit);
 popupAddCard.setEventListeners();
-const addFormValidator = new FormValidator(settingsValidation, 'popupAddForm');
+const addFormValidator = new FormValidator(settingsValidation, "popupAddForm");
 addFormValidator.enableValidation();
 
-const popupConfirm = new PopupConfirm('#popup-confirm', handleConfirm);
+const popupConfirm = new PopupConfirm("#popup-confirm", handleConfirm);
 popupConfirm.setEventListeners();
 
-const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
+const popupZoomImage = new PopupWithImage(
+  "#popup-open-image",
+  ".popup__image",
+  ".popup__caption"
+);
 popupZoomImage.setEventListeners();
 
-editProfileButton.addEventListener('click', handleEditProfileButtonClick);
-changeAvatarButton.addEventListener('click', handleUpdateAvatarButtonClick);
-addCardButton.addEventListener('click', handleAddCardButtonClick);
+editProfileButton.addEventListener("click", handleEditProfileButtonClick);
+changeAvatarButton.addEventListener("click", handleUpdateAvatarButtonClick);
+addCardButton.addEventListener("click", handleAddCardButtonClick);
