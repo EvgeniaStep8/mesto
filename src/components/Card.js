@@ -13,15 +13,12 @@ export default class Card {
   }
 
   _addEventListeners() {
-    this._cardLikeButton = this._card.querySelector('.card__like');
-
     this._cardLikeButton
     .addEventListener('click', () => {
       this._handleLike(this._id, this);
     });
 
-    this._card
-    .querySelector('.card__delete')
+    this._deleteButton
     .addEventListener('click', () => {
       this._handleDeleteCard(this._card);
     })
@@ -55,6 +52,12 @@ export default class Card {
     this._cardLikeButton.classList.remove('card__like_active');
   }
 
+  _hideDeleteButton(isOwnerCard) {
+    if(!isOwnerCard) {
+      this._deleteButton.remove();
+    }
+  }
+
   updateCardLikeCounter(count) {
     this._likeCounter = this._card.querySelector('.card__like-counter');
     this._likeCounter.textContent = count;
@@ -69,9 +72,13 @@ export default class Card {
     this._image.alt = this._name;
 
     this.updateCardLikeCounter(this._numbersOfLikes);
-    this. _addEventListeners();
     this._cardLikeButton = this._card.querySelector('.card__like');
     this._renderLikeState(this.isCardLikeOwner);
+
+    this._deleteButton = this._card.querySelector('.card__delete');
+    this._hideDeleteButton(this._isOwnerCard);
+    
+    this. _addEventListeners();
 
     return this._card;
   }
