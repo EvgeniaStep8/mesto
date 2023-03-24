@@ -9,12 +9,11 @@ import PopupConfirm from '../components/PopupConfirm';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
-function getUserInfo() {
-  
-}
-
 function getCardElement(item) {
-  const card = new Card(item, '#card-template', handleLikeCard, handleClickCardImage, handleDeleteCard);
+  const userId = userInfo.getUserId();
+  const isCardLikeOwner = item.likes.some(like => like._id ===userId);
+  const isOwnerCard = item.owner._id === userId;
+  const card = new Card(item, isCardLikeOwner, isOwnerCard, '#card-template', handleLikeCard, handleClickCardImage, handleDeleteCard);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -67,18 +66,20 @@ function handleClickCardImage(link, title) {
 }
 
 function handleLikeCard(cardId, card) {
-  if (!card.isCardLikeActive()) {
+  if (!card.isCardLikeOwner) {
     api.putCardLike(cardId)
       .then(({ likes }) => {
-        card.renderCardLikeActiveButtonState();
+        card.activateLikeState();
         card.updateCardLikeCounter(likes.length);
+        card.isCardLikeOwner = true;
       })
       .catch(err => console.log(err));
   } else {
     api.deleteCardLike(cardId)
       .then(({ likes }) => {
-        card.renderCardLikeDeactiveButtonState();
+        card.deactivateLikeState();
         card.updateCardLikeCounter(likes.length);
+        card.isCardLikeOwner = false;
       })
       .catch(err => console.log(err));
   }
