@@ -5,7 +5,7 @@ export default class Api {
   }
 
   getUserInfo() {
-    return fetch(`${this._baseUrl + "/users/me"}`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: {
         authorization: this._authorization,
       },
@@ -18,7 +18,7 @@ export default class Api {
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl + "/cards"}`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: {
         authorization: this._authorization,
       },
@@ -30,8 +30,8 @@ export default class Api {
     });
   }
 
-  editUserInfo({ name, about }) {
-    return fetch(`${this._baseUrl + "/users/me"}`, {
+  patchUserInfo({ name, about }) {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
@@ -50,7 +50,7 @@ export default class Api {
   }
 
   editUserAvatar({ avatar }) {
-    return fetch(`${this._baseUrl + "/users/me/avatar"}`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: {
         authorization: this._authorization,
@@ -68,7 +68,7 @@ export default class Api {
   }
 
   createCard(name, link) {
-    return fetch(`${this._baseUrl + "/cards"}`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: {
         authorization: this._authorization,
@@ -87,7 +87,7 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    return fetch(`${this._baseUrl + "/cards/" + cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,
@@ -96,7 +96,7 @@ export default class Api {
   }
 
   putCardLike(cardId) {
-    return fetch(`${this._baseUrl + "/cards/" + cardId + "/likes"}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: {
         authorization: this._authorization,
@@ -110,7 +110,7 @@ export default class Api {
   }
 
   deleteCardLike(cardId) {
-    return fetch(`${this._baseUrl + "/cards/" + cardId + "/likes"}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: {
         authorization: this._authorization,

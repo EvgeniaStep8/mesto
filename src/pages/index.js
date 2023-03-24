@@ -31,7 +31,7 @@ function handleEditProfileButtonClick() {
 
 function handleEditFormSubmit(inputsValues) {
   popupEditProfile.renderPending(true);
-  api.editUserInfo(inputsValues)
+  api.patchUserInfo(inputsValues)
     .then(user => {
       userInfo.setUserInfo(user);
       popupEditProfile.close();
@@ -98,14 +98,15 @@ function handleAddFormSubmit(inputsValues) {
   
 }
 
-function handleDeleteCard(card) {
-  const popupConfirm = new PopupConfirm('#popup-confirm', handleConfirm, card);
-  popupConfirm.setEventListeners();
+function handleDeleteCard(cardId, card) {
   popupConfirm.open();
+  popupConfirm.getInfoAboutConfirmedAction({cardId, card})
 }
 
-function handleConfirm(card) {
-  Card.removeCard(card);
+function handleConfirm({cardId, card}) {
+  api.deleteCard(cardId)
+    .then(() => card.removeCard())
+    .catch(err => console.log(err));
 }
 
 const api = new Api(apiOptions);
@@ -139,6 +140,9 @@ const popupAddCard = new PopupWithForm('#popup-add', handleAddFormSubmit)
 popupAddCard.setEventListeners();
 const addFormValidator = new FormValidator(settingsValidation, 'popupAddForm');
 addFormValidator.enableValidation();
+
+const popupConfirm = new PopupConfirm('#popup-confirm', handleConfirm);
+popupConfirm.setEventListeners();
 
 const popupZoomImage = new PopupWithImage('#popup-open-image', '.popup__image', '.popup__caption');
 popupZoomImage.setEventListeners();

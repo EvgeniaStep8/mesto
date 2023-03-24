@@ -20,7 +20,7 @@ export default class Card {
 
     this._deleteButton
     .addEventListener('click', () => {
-      this._handleDeleteCard(this._card);
+      this._handleDeleteCard(this._id, this);
     })
 
     this._image
@@ -83,8 +83,8 @@ export default class Card {
     return this._card;
   }
 
-  removeCard(card) {
-    card.remove();
-    card = null;
+  removeCard() {
+    this._card.remove();
+    this._card = null;
   }
 }
