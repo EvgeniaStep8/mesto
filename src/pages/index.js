@@ -125,24 +125,21 @@ function handleConfirm({ cardId, card }) {
 }
 
 const api = new Api(apiOptions);
-
 const userInfo = new UserInfo(
   ".profile__name",
   ".profile__job",
   ".profile__avatar"
 );
-api.getUserInfo()
-  .then((user) => {
-    userInfo.setUserInfo(user);
+const cardList = new Section(renderCard, ".cards");
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo(userData);
     userInfo.renderUserInfo();
     userInfo.renderUserAvatar();
+    cardList.renderItems(cards.reverse())
   })
-  .catch((err) => console.log(err));
-
-const cardList = new Section(renderCard, ".cards");
-api.getInitialCards()
-  .then((cards) => cardList.renderItems(cards.reverse()))
-  .catch((err) => console.log(err));
+ .catch((err) => console.log(err));
 
 const popupEditProfile = new PopupWithForm("#popup-edit", handleEditFormSubmit);
 popupEditProfile.setEventListeners();
