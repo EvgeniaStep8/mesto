@@ -3,7 +3,7 @@
   border: none;
   background: inherit;
   display: block;
-  width: 122px;
+  width: 120px;
   padding: 0;
 }
 
@@ -21,4 +21,10 @@
   background-position: center;
   background-size: 26px 26px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 424.98px) {
+  .profile__change-avatar-button {
+    margin: 0 auto;
+  }
 }

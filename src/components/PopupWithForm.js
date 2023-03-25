@@ -27,7 +27,11 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._handleFormSubmit(this._getInputValue());
+      this._renderPending(true);
+      this._handleFormSubmit(this._getInputValue())
+        .then(() => this.close())
+        .catch(err =>console.log(err))
+        .finally(() => this._renderPending(false));
     });
   }
 
@@ -36,7 +40,7 @@ export default class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  renderPending(isPending) {
+  _renderPending(isPending) {
     if (isPending) {
       this._submitButton.textContent += "...";
     } else {

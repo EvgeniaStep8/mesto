@@ -44,15 +44,11 @@ function handleEditProfileButtonClick() {
 }
 
 function handleEditFormSubmit(inputsValues) {
-  popupEditProfile.renderPending(true);
-  api.patchUserInfo(inputsValues)
+  return api.patchUserInfo(inputsValues)
     .then((user) => {
       userInfo.setUserInfo(user);
       userInfo.renderUserInfo();
-      popupEditProfile.close();
     })
-    .catch((err) => console.log(err))
-    .finally(() => popupEditProfile.renderPending(false));
 }
 
 function handleUpdateAvatarButtonClick() {
@@ -61,15 +57,11 @@ function handleUpdateAvatarButtonClick() {
 }
 
 function handleUpdateAvatarFormSubmit(inputsValues) {
-  popupUpdateAvatar.renderPending(true);
-  api.patchUserAvatar(inputsValues)
+  return api.patchUserAvatar(inputsValues)
     .then((user) => {
       userInfo.setUserInfo(user);
       userInfo.renderUserAvatar();
-      popupUpdateAvatar.close();
-    })
-    .catch((err) => console.log(err))
-    .finally(() => popupUpdateAvatar.renderPending(false));
+    });
 }
 
 function handleAddCardButtonClick() {
@@ -107,15 +99,11 @@ function handleDeleteCard(cardId, card) {
 }
 
 function handleAddFormSubmit(inputsValues) {
-  popupAddCard.renderPending(true);
   const { title: name, link } = inputsValues;
-  api.postCard(name, link)
+  return api.postCard(name, link)
     .then((item) => {
       renderCard(item);
-      popupAddCard.close();
-    })
-    .catch((err) => console.log(err))
-    .finally(() => popupAddCard.renderPending(false));
+    });
 }
 
 function handleConfirm({ cardId, card }) {
@@ -133,13 +121,13 @@ const userInfo = new UserInfo(
 const cardList = new Section(renderCard, ".cards");
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {
+  .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
     userInfo.renderUserInfo();
     userInfo.renderUserAvatar();
-    cardList.renderItems(cards.reverse())
+    cardList.renderItems(initialCards.reverse())
   })
- .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 const popupEditProfile = new PopupWithForm("#popup-edit", handleEditFormSubmit);
 popupEditProfile.setEventListeners();
