@@ -108,7 +108,10 @@ function handleAddFormSubmit(inputsValues) {
 
 function handleConfirm({ cardId, card }) {
   api.deleteCard(cardId)
-    .then(() => card.removeCard())
+    .then(() => {
+      card.removeCard();
+      popupConfirm.close();
+    })
     .catch((err) => console.log(err));
 }
 
