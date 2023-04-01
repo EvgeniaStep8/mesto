@@ -6,9 +6,10 @@ export default class PopupConfirm extends Popup {
     this._handleConfirm = handleConfirm;
     this._button = this._popup.querySelector(".popup__save-button");
   }
-
-  getInfoAboutConfirmedAction(info) {
-    this._infoAboutConfirmedAction = info;
+  
+  open(info) {
+    super.open();
+    this._infoAboutConfirmedAction = info; 
   }
 
   setEventListeners() {

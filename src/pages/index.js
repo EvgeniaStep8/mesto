@@ -16,9 +16,8 @@ import UserInfo from "../components/UserInfo.js";
 import FormValidator from "../components/FormValidator.js";
 
 function getCardElement(item) {
-  const userId = userInfo.getUserId();
-  const isCardLikeOwner = item.likes.some((like) => like._id === userId);
-  const isOwnerCard = item.owner._id === userId;
+  const isCardLikeOwner = item.likes.some((like) => like._id === userInfo.getUserId());
+  const isOwnerCard = item.owner._id === userInfo.getUserId();
   const card = new Card(
     item,
     isCardLikeOwner,
@@ -77,25 +76,20 @@ function handleLikeCard(cardId, card) {
   if (!card.isCardLikeOwner) {
     api.putCardLike(cardId)
       .then(({ likes }) => {
-        card.activateLikeState();
-        card.updateCardLikeCounter(likes.length);
-        card.isCardLikeOwner = true;
+        card.updateLikes(likes.length);
       })
       .catch((err) => console.log(err));
   } else {
     api.deleteCardLike(cardId)
       .then(({ likes }) => {
-        card.deactivateLikeState();
-        card.updateCardLikeCounter(likes.length);
-        card.isCardLikeOwner = false;
+        card.updateLikes(likes.length);
       })
       .catch((err) => console.log(err));
   }
 }
 
 function handleDeleteCard(cardId, card) {
-  popupConfirm.open();
-  popupConfirm.getInfoAboutConfirmedAction({ cardId, card });
+  popupConfirm.open({ cardId, card });
 }
 
 function handleAddFormSubmit(inputsValues) {
